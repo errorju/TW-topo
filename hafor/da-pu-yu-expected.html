@@ -1,44 +1,353 @@
+<html><head>
+	<title>elevation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<style>
+		html,
+		body,
+		.leaflet-map,
+		.elevation-div {
+			height: 100%;
+			width: 100%;
+			padding: 0px;
+			margin: 0px;
+		}
 
-			height: 100%;
-			/* width: 100%; */
-			padding: 0px;
-			margin: 0px;
+		.leaflet-map {
+			height: 65%;
+			max-height: 100vh;
+		}
+
+		.elevation-div.elevation-detached {
+			height: 35%;
+			font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+		}
+	</style>
+
+	<!-- leaflet-ui -->
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+	<script src="https://unpkg.com/leaflet-ui@0.5.1/dist/leaflet-ui.js"></script><link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"><link rel="stylesheet" href="https://unpkg.com/leaflet-ui@0.5.1/dist/leaflet-ui.css">
+
+	<!-- leaflet-elevation -->
+	<link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation@1.7.3/dist/leaflet-elevation.min.css">
+	<script src="https://unpkg.com/@raruto/leaflet-elevation@1.7.3/dist/leaflet-elevation.min.js"></script>
+	
+	<!-- CHANGE ME: custom-theme colors -->
+	<style>
+	.lightblue-theme.height-focus.circle-lower {
+	  fill: #FF0;
+	}
+	
+	.dist-marker{
+	
+	}
+	</style>
+	
+	<style>
+	.custom-theme-demo.elevation-control.elevation .area {
+	  fill: rgba(255, 255, 255, 0.85);
+	  stroke: hsla(60, 0%, 0%, 0.85);
+	  stroke-width: 2.8;
+	}
+
+	.custom-theme-demo.height-focus.circle-lower {
+	  fill: #FF0;
+	}
+
+	.custom-theme-demo.elevation-polyline {
+	  stroke: #F00;
+	  stroke-opacity: 1;
+	  stroke-width: 2;
+	}
+
+	.custom-theme-demo.elevation-polyline-segments {
+	  stroke: #FF0;
+	  stroke-width: 2;
+	  stroke-dasharray: 4;
+	}
+	</style>
+<script src="https://unpkg.com/d3@6.5.0/dist/d3.min.js"></script><script src="https://unpkg.com/@tmcw/togeojson@4.3.0/dist/togeojson.umd.js"></script><script src="https://unpkg.com/leaflet-geometryutil@0.9.3/src/leaflet.geometryutil.js"></script><script src="https://unpkg.com/leaflet-almostover@1.0.1/src/leaflet.almostover.js"></script><script src="https://unpkg.com/@raruto/leaflet-elevation@1.7.3/libs/leaflet-distance-marker.min.js"></script></head>
+
+<body>
+
+	<div id="map" class="leaflet-map leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0" style="position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(-269px, 0px, 0px);"><div class="leaflet-pane leaflet-rotate-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 0; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 24; transform: translate3d(-2px, -4px, 0px) scale(1);"><img alt="" role="presentation" src="https://c.tile.opentopomap.org/14/13724/7023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(489px, 108px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.opentopomap.org/14/13725/7023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(745px, 108px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.opentopomap.org/14/13724/7022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(489px, -148px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.opentopomap.org/14/13725/7022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(745px, -148px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.opentopomap.org/14/13724/7024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(489px, 364px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.opentopomap.org/14/13725/7024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(745px, 364px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.opentopomap.org/14/13723/7023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(233px, 108px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.opentopomap.org/14/13726/7023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1001px, 108px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.opentopomap.org/14/13723/7022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(233px, -148px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.opentopomap.org/14/13726/7022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1001px, -148px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.opentopomap.org/14/13723/7024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(233px, 364px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.opentopomap.org/14/13726/7024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1001px, 364px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.opentopomap.org/14/13722/7023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-23px, 108px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.opentopomap.org/14/13722/7022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-23px, -148px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.opentopomap.org/14/13722/7024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-23px, 364px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://c.tile.opentopomap.org/14/13727/7023.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1257px, 108px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://b.tile.opentopomap.org/14/13727/7022.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1257px, -148px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://a.tile.opentopomap.org/14/13727/7024.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(1257px, 364px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"><canvas class="leaflet-zoom-animated" width="978" height="658" style="transform: translate3d(187px, -55px, 0px); width: 978px; height: 658px;"></canvas></div></div><div class="leaflet-pane leaflet-norotate-pane"><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="8" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(785px, 318px, 0px); z-index: 318;">8</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="4" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(612px, 401px, 0px); z-index: 401;">4</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="12" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(565px, 277px, 0px); z-index: 277;">12</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="2" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(510px, 239px, 0px); z-index: 239;">2</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="6" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(784px, 363px, 0px); z-index: 363;">6</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="10" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(674px, 318px, 0px); z-index: 318;">10</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="14" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(500px, 230px, 0px); z-index: 230;">14</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="1" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(497px, 182px, 0px); z-index: 182;">1</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="3" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(566px, 311px, 0px); z-index: 311;">3</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="5" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(701px, 423px, 0px); z-index: 423;">5</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="7" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(879px, 324px, 0px); z-index: 324;">7</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="9" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(698px, 311px, 0px); z-index: 311;">9</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="11" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(619px, 287px, 0px); z-index: 287;">11</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="13" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(559px, 282px, 0px); z-index: 282;">13</div><div class="leaflet-marker-icon dist-marker leaflet-zoom-animated leaflet-interactive" title="15" tabindex="0" style="margin-left: -6px; margin-top: -6px; transform-origin: 6px 6px 0px; width: 12px; height: 12px; transform: translate3d(508px, 162px, 0px); z-index: 162;">15</div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(498px, 181px, 0px); z-index: 181;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(507px, 158px, 0px); z-index: 158;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(542px, 268px, 0px); z-index: 268;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(553px, 302px, 0px); z-index: 302;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(620px, 428px, 0px); z-index: 428;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(703px, 315px, 0px); z-index: 315;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(469px, 108px, 0px); z-index: 108;"><i class="elevation-waypoint-icon waypoint"></i></div><div class="leaflet-marker-icon elevation-waypoint-marker leaflet-zoom-animated leaflet-interactive" tabindex="0" style="margin-left: -8px; margin-top: -30px; transform-origin: 8px 30px 0px; width: 30px; height: 30px; transform: translate3d(773px, 370px, 0px); z-index: 370;"><i class="elevation-waypoint-icon waypoint"></i></div></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-pane leaflet-elevation-pane" style="z-index: 625; pointer-events: none;"><svg pointer-events="none" class="leaflet-zoom-animated" width="978" height="658" viewBox="187 -55 978 658" style="transform: translate3d(187px, -55px, 0px);"><g class="height-focus-group leaflet-hidden"><line class="lightblue-theme height-focus line" x1="859" x2="859" y1="326" y2="250.84172661870502"></line><circle class="lightblue-theme height-focus circle-lower" transform="translate(859,326)" r="6" cx="0" cy="0"></circle><text class="lightblue-theme height-focus-label" x="864" y="250.84172661870502" style="pointer-events: none;"><tspan class="height-focus-y" x="864" dy="-1.5em">337 m</tspan><tspan class="height-focus-slope" dy="1.5em" x="864">-18%</tspan><tspan class="height-focus-speed" dy="1.5em" x="864">4 km/h</tspan></text></g></svg></div></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(3.51353e+06px, 1.79806e+06px, 0px) scale(8192);"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"><div class="leaflet-control-layers leaflet-control-layers-expanded leaflet-control-layers-inline leaflet-control" aria-haspopup="true"><a class="leaflet-control-layers-toggle" href="#" title="Layers"></a><section class="leaflet-control-layers-list"><div class="leaflet-control-layers-base"><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 衛星圖</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> OSM</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 1/25000經建</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 臺灣通用電子地圖</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37" checked="checked"><span> Topo</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 魯地圖彩色</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 魯地圖清爽</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 鄉鎮區界</span></div></label><label><div><input type="radio" class="leaflet-control-layers-selector" name="leaflet-base-layers_37"><span> 村里界</span></div></label></div><div class="leaflet-control-layers-separator" style="display: none;"></div><div class="leaflet-control-layers-overlays"></div></section></div></div><div class="leaflet-top leaflet-right"><div class="leaflet-bar leaflet-control"><a class="leaflet-control-zoom-fullscreen fullscreen-icon" href="#" title="Enter Fullscreen" role="button" aria-label="Enter Fullscreen"></a></div><div class="leaflet-control-layers leaflet-control" aria-haspopup="true"><a class="leaflet-control-layers-toggle" href="#" title="Layers"></a><section class="leaflet-control-layers-list"><div class="leaflet-control-layers-base"></div><div class="leaflet-control-layers-separator" style="display: none;"></div><div class="leaflet-control-layers-overlays"><label><div><input type="checkbox" class="leaflet-control-layers-selector" checked=""><span> <!--[CDATA[啦卡登山步道口]]--></span></div></label></div></section></div></div><div class="leaflet-bottom leaflet-left"><div class="leaflet-control-minimap leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-control" tabindex="0" style="width: 75px; height: 75px; position: relative;"><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(0px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 24; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" role="presentation" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/9/219/428" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-192px, -88px, 0px); opacity: 1;"><img alt="" role="presentation" src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/9/219/429" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(64px, -88px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"><svg pointer-events="none" width="90" height="90" viewBox="-7 -7 90 90" style="transform: translate3d(-7px, -7px, 0px);"><g><path class="leaflet-interactive" stroke="#000000" stroke-opacity="0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="#000000" fill-opacity="0" fill-rule="evenodd" d="M25 46L25 29L51 29L51 46z"></path><path class="leaflet-interactive" stroke="#000000" stroke-opacity="0" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="#000000" fill-opacity="0" fill-rule="evenodd" d="M84 -7L-8 -7L84 -8z"></path></g></svg></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"></div><div class="leaflet-bottom leaflet-right"></div></div></div></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-zoom leaflet-control-layer-container leaflet-bar leaflet-control"><a class="leaflet-control-loading"></a></div><div class="leaflet-control-rotate leaflet-bar leaflet-control" style="display: none;"><a class="leaflet-control-rotate-toggle" href="#" title="Rotate map" style="background-color: grey;"><span class="leaflet-control-rotate-arrow" style="background-image: url(&quot;data:image/svg+xml;charset=utf-8,%3Csvg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='%23333'%3E%3Cpath d='M10.5 14l4-8 4 8h-8z'/%3E%3Cpath d='M10.5 16l4 8 4-8h-8z' fill='%23ccc'/%3E%3C/svg%3E&quot;); cursor: grab; display: block; width: 100%; height: 100%; background-repeat: no-repeat; background-position: 50% center; transform: rotate(0deg);"></span></a></div><div class="leaflet-control-zoom leaflet-bar leaflet-control"><a class="leaflet-control-zoom-in" href="#" title="Zoom in" role="button" aria-label="Zoom in">+</a><a class="leaflet-control-zoom-out leaflet-bar-part-bottom" href="#" title="Zoom out" role="button" aria-label="Zoom out">−</a></div><div class="leaflet-control-scale leaflet-control"><div class="leaflet-control-scale-line" style="width: 58px;">500 m</div></div><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | Map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: © <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)</div></div><div class="leaflet-control-resizer-corner-s"><div class="leaflet-control-resizer leaflet-control-resizer-opaque leaflet-control-resizer-s leaflet-control"></div></div></div></div>
+	
+	<div id="elevation-div" class="elevation-div elevation-detached"><div class="elevation-control elevation lightblue-theme" aria-haspopup="true"><svg class="background" viewBox="0 0 815 276" width="815" height="276"><g transform="translate(40,30)"><g class="grid"><g class="x grid bottom " transform="translate(0,186)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"><path class="domain" stroke="currentColor" d="M0.5,-186V0.5H685.5V-186"></path><g class="tick" opacity="1" transform="translate(0.5,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(88.10022072697953,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(175.70044145395906,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(263.3006621809386,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(350.9008829079181,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(438.5011036348977,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(526.1013243618772,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g><g class="tick" opacity="1" transform="translate(613.7015450888566,0)"><line stroke="currentColor" y2="-186"></line><text fill="currentColor" y="3" dy="0.71em"></text></g></g><g class="y grid left " transform="translate(0,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><path class="domain" stroke="currentColor" d="M685,186.5H0.5V0.5H685"></path><g class="tick" opacity="1" transform="translate(0,163.38745257042856)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g><g class="tick" opacity="1" transform="translate(0,137.69542535111808)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g><g class="tick" opacity="1" transform="translate(0,112.00339813180757)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g><g class="tick" opacity="1" transform="translate(0,86.31137091249708)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g><g class="tick" opacity="1" transform="translate(0,60.61934369318658)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g><g class="tick" opacity="1" transform="translate(0,34.92731647387606)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g><g class="tick" opacity="1" transform="translate(0,9.235289254565565)"><line stroke="currentColor" x2="685"></line><text fill="currentColor" x="-3" dy="0.32em"></text></g></g></g><g class="area"><clipPath id="elevation-clipper"><rect x="0" y="0" width="685" height="186"></rect></clipPath><foreignObject width="685" height="186"><canvas class="canvas-plot" width="685" height="186"></canvas></foreignObject><path class="slope leaflet-hidden" fill="#F00" stroke="#000" stroke-opacity="0.5" fill-opacity="0.25" style="pointer-events: none;" clip-path="url(#elevation-clipper)"></path><path class="speed leaflet-hidden" fill="#03ffff" stroke="#000" stroke-opacity="0.5" fill-opacity="0.25" style="pointer-events: none;" clip-path="url(#elevation-clipper)"></path><path class="altitude" fill="#3366CC" stroke="#3366CC" stroke-opacity="1" fill-opacity="0.45" style="pointer-events: none;" clip-path="url(#elevation-clipper)" d="M0,183.61834984753074L1.0424426266510565,183.69799461807006L2.417766092064635,183.69799461807006L3.4361186580157717,183.69799461807006L4.720337893873292,183.69799461807006L6.555562518103512,184.72567570684248L8.188430632454413,184.72567570684248L9.13976902954941,185.23951625122868L10.145419563495134,184.21183516245625L11.14099607205726,184.72567570684248L12.71342003410654,183.69799461807006L14.80356130065227,183.18415407368386L16.601993832177158,182.92723380149073L19.01406590989454,182.67031352929763L20.864620572751985,182.67031352929763L22.02970350842081,181.89955271271833L23.240338558867666,181.6426324405252L26.39000449510622,180.35803107955968L28.170478981382075,179.58727026298038L29.21292160803313,179.33034999078725L30.366616515007458,179.07342971859416L31.35430900370415,178.04574862982176L32.571952071809164,176.24730672447L35.398373193565156,175.47654590789068L36.82143877927494,174.19194454692519L41.68806904176229,171.365821552801L43.157124743353734,170.08122019183548L44.49478011385471,168.02585801429063L45.47634058710052,168.28277828648376L46.66419958015836,168.28277828648376L48.56600037214108,169.31045937525616L49.71487726697543,168.28277828648376L51.3963635038298,169.82429991964239L52.31616582146307,169.31045937525616L53.499644803484564,168.28277828648376L54.443975182921406,166.74125665332514L55.628768168253806,165.19973502016651L56.5875525841106,164.4289742035872L57.736867480048566,163.14437284262166L59.211179194883634,161.0890106650768L60.258439833674686,160.06132957630442L61.32234451440384,157.74904712656647L62.63065381096129,154.4090835880561L63.68711247292865,152.86756195489747L64.74138112937786,150.0414389607733L65.69534753309466,148.49991732761467L66.98657478661033,147.72915651103534L68.56644476742142,147.47223623884227L69.83708596906625,147.21531596664914L70.89661063875906,145.41687406129742L72.30390818473799,144.6461132447181L73.21933049133492,144.1322727003319L74.87497466307484,144.6461132447181L76.84072361618826,143.10459161155947L78.03909463573335,142.33383079498014L79.37587400402705,142.07691052278707L80.66578725423183,140.53538888962842L81.64734772747764,139.76462807304912L84.4255887278338,135.65390371795942L85.78777216013832,132.05701990725595L87.52400853494706,125.63401310242833L88.72281755559577,119.98176711418003L89.68160197145255,116.12796303128346L91.25446393460547,111.24647785961444L95.4281764511424,104.82347105478684L96.41762094425366,99.68506561092474L97.42852749144299,95.57434125583505L98.96547336409785,91.97745744513159L100.96144439336207,87.60981281784882L102.01352304429311,84.01292900714535L102.95785342372996,82.21448710179361L104.3414989101126,82.9852479183729L106.0308691668324,83.24216819056602L107.43510070508587,82.21448710179361L108.67026381733629,79.13144383547633L109.65664230272208,77.58992220231771L110.90625945139244,75.53456002477287L111.83044178006209,74.50687893600046L113.60434624978342,75.02071948038665L114.71205104087609,73.73611811942114L116.18110674246752,73.22227757503492L117.29056353797472,70.65307485310387L119.6373734512505,64.23006804827624L120.68332008673065,60.890104509765884L121.8851951151048,59.34858287660726L122.76951934334365,58.577822060027955L124.19170892684618,59.605503148800366L125.41329400488391,60.890104509765884L126.68262120321783,62.17470587073142L127.59278749657115,64.48698832046935L128.80167054260346,67.82695185897971L129.95098543854144,70.65307485310387L130.8707877561747,73.47919784722802L132.64469222589605,74.76379920819356L133.5290164541349,76.5622411135453L134.57540109071869,76.5622411135453L136.41500572598525,75.27763975257976L137.32517201933857,73.99303839161423L139.35749714020452,71.42383566968319L141.0306613560898,69.11155321994525L142.0122218293356,67.82695185897971L143.58070378145217,67.31311131459351L144.79133883189903,67.05619104240041L146.4776430808934,65.25774913704868L148.05751306170444,62.43162614292451L149.3005601938203,61.14702478195899L150.67851166585567,60.376263965379685L151.67803018435052,60.11934369318658L152.64688862559092,58.83474233222104L153.619689076764,57.29322069906242L154.95822044947226,55.23785852151757L155.8850307847637,53.439416616165836L157.42986067728398,52.411735527393404L158.44383323219878,51.127134166427886L159.43021171758454,49.07177198888304L160.48141436630831,47.0164098113382L161.80811970921843,45.988728722565796L162.7279220268517,45.474888178179576L164.50182649657305,42.39184491186232L166.54159763620078,39.30880164554505L167.52447211275745,36.482678651420905L168.4460264348053,33.91347592948985L169.52569915526533,31.34427320755881L170.5799678117145,30.059671846593268L172.0582215364823,27.74738939685534L173.69678366518045,25.692027219310496L175.136931293932,24.664346130538068L176.34756634437886,22.09514340860703L177.26736866201213,20.039781231062186L178.32689333170492,17.984419053517342L179.59972453886797,16.956737964744935L180.55763295251745,16.44289742035872L181.7065098473518,14.644455515006984L183.12519542202526,12.589093337462142L184.69630538076365,8.992209526758671L185.7475080294874,6.166086532634527L186.65767432284073,0.11561720553017119L187.69223292962636,0L188.9479820937476,0.7707608165793236L190.37498968939013,2.0553621775448425L191.46342243192285,2.8261229941241455L192.58733326385,5.909166260441419L194.1071970934631,7.450687893600046L195.45405048714042,9.506050071144887L196.8447039911812,12.075252793075926L198.14688127228771,14.644455515006984L199.39781242426898,15.929056875972503L200.39514093724566,17.21365823693804L201.7297303000212,20.039781231062186L203.21324003803264,21.581302864220813L204.73354186874934,22.352063680800136L206.51708236275064,24.664346130538068L208.07067227734365,26.4627880358898L209.0666867870094,27.490469124662233L210.58698861772612,28.004309669048446L211.79762366817295,28.261229941241535L213.09980094927948,29.545831302207073L214.43439031205503,30.316592118786378L215.43390883054988,30.573512390979484L218.27741199534762,30.830432663172594L219.4368009166692,30.830432663172594L220.48887956760024,31.858113751945005L221.7398107195815,33.39963538510365L222.77831133629985,35.19807729045539L224.39497340981623,35.968838107034685L225.64459055848658,38.02420028457953L226.76762538820648,39.822642189931265L227.7671439067013,40.59340300651059L229.10567527940958,41.87800436747611L230.1538119204079,42.39184491186232L231.3526209410566,43.67644627282784L233.08666731034717,45.988728722565796L234.71340340924718,49.32869226107616L236.01558069035372,50.87021389423478L237.44696829703258,53.439416616165836L238.51525298879812,55.23785852151757L240.38245169359365,57.0363004268693L241.65177889192756,57.80706124344863L242.53128510802648,59.34858287660726L243.5496376739776,61.403945054152096L244.4948440556217,63.716227503890046L245.50180859287835,66.5423504980142L246.71463364884335,68.59771267555904L248.25946354136366,71.9376762140694L249.34395427396365,73.73611811942114L250.2234604900625,76.5622411135453L251.79150444107546,80.67296546863496L252.80460099378297,82.7283276461798L254.0713001854951,83.75600873495223L255.24908515316935,84.26984927933843L257.07905376415596,84.52676955153154L258.6922118288433,85.81137091249708L259.66107027008366,87.09597227346259L260.9439755026303,89.15133445100744L262.2268807351769,91.46361690074536L263.779156646459,92.4912979895178L264.9074474894225,93.00513853390402L266.1798406954818,93.2620588060971L267.7527026586348,93.51897907829023L268.8748614861474,93.51897907829023L270.1770387672539,94.80358043925575L271.3000735969738,96.85894261680058L272.38631633398836,99.68506561092474L273.85143002564706,100.96966697189026L275.1071791897683,101.74042778846957L276.17108387049745,101.99734806066269L277.500855221133,103.53886969382131L278.66024414245464,104.82347105478684L279.85511115317064,105.59423187136616L281.0727542212756,105.85115214355925L282.2711252408207,107.64959404891098L283.52293239500926,109.4480359542627L284.49573284618236,111.50339813180757L286.1907971172494,113.5587603093524L287.1771756026352,115.87104275909034L288.45044481090184,118.1833252088283L291.05436137201133,121.26636847514555L291.97241168523004,123.5786509248835L293.3109430579383,125.37709283023524L294.3748477386675,126.40477391900767L295.5924908067725,127.68937527997319L297.4101953868573,130.00165772971113L299.82927548223284,133.0847009960284L301.25234106794267,136.68158480673185L302.41830000581876,139.76462807304912L303.9061897548665,141.30614970620775L305.1974170083822,143.6184321559457L306.34191389218023,146.18763487787675L307.6765032549558,147.47223623884227L308.6164536233562,147.98607678322847L311.800721646782,148.24299705542157L312.995588657498,148.49991732761467L314.5723926305836,148.49991732761467L315.8101837494558,148.49991732761467L316.9511766244247,148.49991732761467L319.64794941950476,148.49991732761467L321.16737524801425,147.72915651103534L323.0442099770898,145.93071460568362L323.95218626492493,146.44455515006985L325.6709025955883,146.70147542226294L326.6572810809741,146.70147542226294L327.70848372969783,146.70147542226294L328.7513643574525,145.67379433349052L330.18975998178956,145.15995378910432L331.0679521945775,144.9030335169112L332.1918630265047,143.6184321559457L333.5864585404782,144.1322727003319L335.05376223765506,145.41687406129742L336.2889253499055,144.9030335169112L338.0282277324397,144.6461132447181L340.16260711045254,144.6461132447181L341.04079932324055,145.41687406129742L342.12923206577324,145.67379433349052L343.29519100364934,145.93071460568362L344.5097680640289,145.93071460568362L345.89779356144794,145.93071460568362L346.95731823114073,146.70147542226294L348.0869230774151,146.18763487787675L349.3825303419672,145.93071460568362L351.416169466144,145.67379433349052L353.75027734741445,145.67379433349052L355.0966927399881,145.67379433349052L356.34718589086566,145.67379433349052L357.39926454179675,144.9030335169112L360.85202724175065,144.6461132447181L362.91632644318184,145.93071460568362L363.9675290919056,146.70147542226294L365.11684398784354,146.95839569445604L366.2052767303762,147.21531596664914L367.76237065379837,148.49991732761467L368.91737956408355,146.95839569445604L371.84979695291923,146.18763487787675L372.93822969545204,147.21531596664914L374.3455272414309,147.72915651103534L375.55616229187774,146.70147542226294L376.733947259552,145.15995378910432L379.2507016010382,144.38919297252502L380.89451974298,144.6461132447181L381.845858140075,144.9030335169112L384.2071220897707,144.1322727003319L385.87371628910154,143.6184321559457L387.22801570154064,142.07691052278707L390.74034655158886,141.30614970620775L392.65222136895517,141.81999025059395L393.5304135817431,142.07691052278707L394.73929662777545,142.07691052278707L398.61692039825516,143.36151188375257L402.2286774988285,143.10459161155947L403.186585912478,144.38919297252502L404.22508652919635,143.36151188375257L405.7134142793477,142.84767133936637L407.26569019062975,141.81999025059395L409.06631272767277,141.30614970620775L410.35359797125574,140.27846861743532L411.62029716296786,139.76462807304912L412.7205559352987,139.507707800856L414.37401010152047,137.19542535111808L415.5390930371893,137.70926589550427L416.6485498326965,137.19542535111808L418.2739719282856,136.93850507892495L420.806056308399,136.93850507892495L422.1428356766926,135.91082399015252L423.29215057263053,135.39698344576635L424.96531478851585,135.1400631735732L426.56489481899047,134.1123820848008L428.1447647998016,133.5985415404146L432.7144303140244,132.31394017944908L434.20582407190136,131.54317936286975L435.2197966268161,131.28625909067665L436.2337691817308,131.02933881848352L438.322158443862,129.744737457518L439.8380802635424,129.2308969131318L440.8069387047828,128.9739766409387L442.3272405354995,128.7170563687456L444.32715357469647,128.7170563687456L445.24126187798254,127.94629555216628L447.2779670098848,127.43245500778006L449.16137175551484,126.14785364681454L450.3273306933909,125.63401310242833L452.2392055107572,125.37709283023524L453.4183044817423,125.89093337462145L454.97539840516447,125.12017255804213L456.00776700643183,124.09249146926972L456.9972114995431,123.5786509248835L458.7610419438808,123.32173065269039L460.0632192249874,123.06481038049729L461.313712375865,123.06481038049729L462.36798103231416,123.06481038049729L463.4564137748469,122.03712929172485L464.79888715748785,121.52328874733865L465.7156234673957,121.26636847514555L466.6971839406415,121.26636847514555L467.6787444138874,120.49560765856624L468.6651228992732,120.23868738637312L470.2336048513897,117.9264049366352L471.28568350232075,117.9264049366352L472.70655908251234,117.9264049366352L474.5960958435932,117.9264049366352L475.8842570893835,117.9264049366352L476.94378175907633,116.64180357566966L478.09703866494704,115.10028194251105L480.37420640274485,114.32952112593172L481.2585306309837,114.0726008537386L482.2400911042295,113.81568058154551L484.4861607636693,113.81568058154551L486.12691289788563,113.04491976496618L487.3988681028414,112.53107922057998L488.7330194645132,111.76031840400066L490.63350625318503,111.24647785961444L491.6658748544525,110.98955758742136L493.00002621612435,110.98955758742136L494.32979756675996,110.98955758742136L495.3893222364528,109.96187649864893L497.1027825538725,109.4480359542627L498.5744662620858,109.19111568206962L500.2327384404475,108.1634345932972L501.80516240249676,108.67727513768341L502.7267167245446,107.90651432110411L505.27632114880333,105.85115214355925L506.4939642169083,104.82347105478684L507.9853579747852,104.30963051040064L509.1754069733612,104.05271023820751L510.32866387923184,104.05271023820751L511.8971458313484,104.05271023820751L513.3583175130744,104.05271023820751L514.2641037953914,103.0250291494351L515.2277062233883,102.5111886050489L516.6967619249797,101.48350751627648L517.6568603441474,100.96966697189026L519.1302960567751,100.71274669969716L520.4924794890796,99.17122506653853L522.7157730911305,98.40046424995921L524.2041008412818,98.91430479434544L525.5058401212847,99.17122506653853L526.8080174023913,99.17122506653853L527.8600960533223,98.65738452215231L529.3379117769865,98.40046424995921L531.9589103811377,97.6297034333799L532.9452888665235,98.14354397776611L533.9408653750855,96.34510207241438L537.7501609733984,95.57434125583505L539.7386859839007,95.06050071144884L540.7382045023955,93.77589935048331L542.7276055151053,93.00513853390402L545.3924042296201,92.7482182617109L546.6481533937413,92.4912979895178L547.801410299612,92.4912979895178L549.7702252604508,91.46361690074536L550.8840620669944,90.94977635635918L551.8669365435511,90.69285608416607L552.9549312849801,89.40825472320054L554.0429260264092,89.92209526758674L555.5733018825096,88.89441417881433L560.1683714607433,88.38057363442812L562.1643424900075,88.123653362235L563.2286851718403,86.58213172907638L565.2356062286954,85.81137091249708L566.3065189270827,85.29753036811086L567.5215339885659,85.81137091249708L570.7636181576715,86.06829118469017L572.3653881936643,86.32521145688327L577.0809080753975,86.32521145688327L578.3186991942697,86.32521145688327L580.3505863140321,84.78368982372464L581.6225415189879,84.01292900714535L582.60848200327,83.49908846275913L584.0727196927214,85.04061009591776L585.6863157585124,88.123653362235L587.152743453482,91.46361690074536L588.1421879465933,94.80358043925575L591.8643213252826,99.68506561092474L593.0596263371023,103.79578996601442L594.2474853301601,107.90651432110411L595.3319760627601,110.98955758742136L596.3827407103803,115.10028194251105L597.4707354518093,118.9540860254076L599.1837577681255,125.37709283023524L601.3943493381707,131.80009963506288L602.4740220586308,134.88314290138013L603.7639353088356,137.96618616769737L605.1007146771293,139.507707800856L606.2990856966743,140.27846861743532L607.7033172349278,140.53538888962842L608.853508133073,141.56306997840085L610.5455063964146,143.10459161155947L611.694383291249,145.15995378910432L613.4547097267576,144.38919297252502L614.5142343964505,145.41687406129742L615.7848755980954,146.70147542226294L616.8413342600627,147.21531596664914L618.1807416349782,146.95839569445604L619.231944283702,147.98607678322847L620.6199697811209,148.49991732761467L621.992227238809,150.0414389607733L623.2295803565777,153.89524304366986L624.2768409953687,155.95060522121472L625.5667542455735,158.77672821533886L626.5531327309593,160.06132957630442L628.2530150141663,161.85977148165614L629.4378079994988,163.65821338700786L630.3821383789356,165.4566552923596L631.565617360957,166.99817692551824L632.4854196785903,169.0535391030631L634.1669059154447,168.28277828648376L635.3157828102791,169.31045937525616L636.3626054479664,169.82429991964239L638.390550557796,169.0535391030631L639.3721110310419,167.51201746990444L640.4982118684871,167.76893774209753L642.0916598835109,167.76893774209753L646.7922877277206,169.0535391030631L648.4978640252749,171.87966209718724L651.2953770741909,173.42118373034586L652.3496457306402,175.21962563569758L653.5418847347344,176.7611472688562L654.6955796417087,177.53190808543553L655.7380222683597,177.78882835762863L657.5184967546355,178.04574862982176L660.6681626908742,179.84419053517348L661.8787977413209,180.8718716239459L663.0438806769898,181.3857121683321L664.3250339051218,181.6426324405252L666.7887901130682,181.6426324405252L669.2521083199108,181.6426324405252L671.3422495864565,181.6426324405252L672.9146735485059,183.44107434587696L673.910250057068,183.44107434587696L674.9159005910136,184.72567570684248L675.8672389881086,184.72567570684248L677.3380466941147,184.72567570684248L679.2157574253976,186L680.399236407419,184.72567570684248L681.5827153894405,184.21183516245625L683.6627826306027,183.95491489026315L684.642591099434,183.69799461807006L685,183.69799461807006L685,186L684.642591099434,186L683.6627826306027,186L681.5827153894405,186L680.399236407419,186L679.2157574253976,186L677.3380466941147,186L675.8672389881086,186L674.9159005910136,186L673.910250057068,186L672.9146735485059,186L671.3422495864565,186L669.2521083199108,186L666.7887901130682,186L664.3250339051218,186L663.0438806769898,186L661.8787977413209,186L660.6681626908742,186L657.5184967546355,186L655.7380222683597,186L654.6955796417087,186L653.5418847347344,186L652.3496457306402,186L651.2953770741909,186L648.4978640252749,186L646.7922877277206,186L642.0916598835109,186L640.4982118684871,186L639.3721110310419,186L638.390550557796,186L636.3626054479664,186L635.3157828102791,186L634.1669059154447,186L632.4854196785903,186L631.565617360957,186L630.3821383789356,186L629.4378079994988,186L628.2530150141663,186L626.5531327309593,186L625.5667542455735,186L624.2768409953687,186L623.2295803565777,186L621.992227238809,186L620.6199697811209,186L619.231944283702,186L618.1807416349782,186L616.8413342600627,186L615.7848755980954,186L614.5142343964505,186L613.4547097267576,186L611.694383291249,186L610.5455063964146,186L608.853508133073,186L607.7033172349278,186L606.2990856966743,186L605.1007146771293,186L603.7639353088356,186L602.4740220586308,186L601.3943493381707,186L599.1837577681255,186L597.4707354518093,186L596.3827407103803,186L595.3319760627601,186L594.2474853301601,186L593.0596263371023,186L591.8643213252826,186L588.1421879465933,186L587.152743453482,186L585.6863157585124,186L584.0727196927214,186L582.60848200327,186L581.6225415189879,186L580.3505863140321,186L578.3186991942697,186L577.0809080753975,186L572.3653881936643,186L570.7636181576715,186L567.5215339885659,186L566.3065189270827,186L565.2356062286954,186L563.2286851718403,186L562.1643424900075,186L560.1683714607433,186L555.5733018825096,186L554.0429260264092,186L552.9549312849801,186L551.8669365435511,186L550.8840620669944,186L549.7702252604508,186L547.801410299612,186L546.6481533937413,186L545.3924042296201,186L542.7276055151053,186L540.7382045023955,186L539.7386859839007,186L537.7501609733984,186L533.9408653750855,186L532.9452888665235,186L531.9589103811377,186L529.3379117769865,186L527.8600960533223,186L526.8080174023913,186L525.5058401212847,186L524.2041008412818,186L522.7157730911305,186L520.4924794890796,186L519.1302960567751,186L517.6568603441474,186L516.6967619249797,186L515.2277062233883,186L514.2641037953914,186L513.3583175130744,186L511.8971458313484,186L510.32866387923184,186L509.1754069733612,186L507.9853579747852,186L506.4939642169083,186L505.27632114880333,186L502.7267167245446,186L501.80516240249676,186L500.2327384404475,186L498.5744662620858,186L497.1027825538725,186L495.3893222364528,186L494.32979756675996,186L493.00002621612435,186L491.6658748544525,186L490.63350625318503,186L488.7330194645132,186L487.3988681028414,186L486.12691289788563,186L484.4861607636693,186L482.2400911042295,186L481.2585306309837,186L480.37420640274485,186L478.09703866494704,186L476.94378175907633,186L475.8842570893835,186L474.5960958435932,186L472.70655908251234,186L471.28568350232075,186L470.2336048513897,186L468.6651228992732,186L467.6787444138874,186L466.6971839406415,186L465.7156234673957,186L464.79888715748785,186L463.4564137748469,186L462.36798103231416,186L461.313712375865,186L460.0632192249874,186L458.7610419438808,186L456.9972114995431,186L456.00776700643183,186L454.97539840516447,186L453.4183044817423,186L452.2392055107572,186L450.3273306933909,186L449.16137175551484,186L447.2779670098848,186L445.24126187798254,186L444.32715357469647,186L442.3272405354995,186L440.8069387047828,186L439.8380802635424,186L438.322158443862,186L436.2337691817308,186L435.2197966268161,186L434.20582407190136,186L432.7144303140244,186L428.1447647998016,186L426.56489481899047,186L424.96531478851585,186L423.29215057263053,186L422.1428356766926,186L420.806056308399,186L418.2739719282856,186L416.6485498326965,186L415.5390930371893,186L414.37401010152047,186L412.7205559352987,186L411.62029716296786,186L410.35359797125574,186L409.06631272767277,186L407.26569019062975,186L405.7134142793477,186L404.22508652919635,186L403.186585912478,186L402.2286774988285,186L398.61692039825516,186L394.73929662777545,186L393.5304135817431,186L392.65222136895517,186L390.74034655158886,186L387.22801570154064,186L385.87371628910154,186L384.2071220897707,186L381.845858140075,186L380.89451974298,186L379.2507016010382,186L376.733947259552,186L375.55616229187774,186L374.3455272414309,186L372.93822969545204,186L371.84979695291923,186L368.91737956408355,186L367.76237065379837,186L366.2052767303762,186L365.11684398784354,186L363.9675290919056,186L362.91632644318184,186L360.85202724175065,186L357.39926454179675,186L356.34718589086566,186L355.0966927399881,186L353.75027734741445,186L351.416169466144,186L349.3825303419672,186L348.0869230774151,186L346.95731823114073,186L345.89779356144794,186L344.5097680640289,186L343.29519100364934,186L342.12923206577324,186L341.04079932324055,186L340.16260711045254,186L338.0282277324397,186L336.2889253499055,186L335.05376223765506,186L333.5864585404782,186L332.1918630265047,186L331.0679521945775,186L330.18975998178956,186L328.7513643574525,186L327.70848372969783,186L326.6572810809741,186L325.6709025955883,186L323.95218626492493,186L323.0442099770898,186L321.16737524801425,186L319.64794941950476,186L316.9511766244247,186L315.8101837494558,186L314.5723926305836,186L312.995588657498,186L311.800721646782,186L308.6164536233562,186L307.6765032549558,186L306.34191389218023,186L305.1974170083822,186L303.9061897548665,186L302.41830000581876,186L301.25234106794267,186L299.82927548223284,186L297.4101953868573,186L295.5924908067725,186L294.3748477386675,186L293.3109430579383,186L291.97241168523004,186L291.05436137201133,186L288.45044481090184,186L287.1771756026352,186L286.1907971172494,186L284.49573284618236,186L283.52293239500926,186L282.2711252408207,186L281.0727542212756,186L279.85511115317064,186L278.66024414245464,186L277.500855221133,186L276.17108387049745,186L275.1071791897683,186L273.85143002564706,186L272.38631633398836,186L271.3000735969738,186L270.1770387672539,186L268.8748614861474,186L267.7527026586348,186L266.1798406954818,186L264.9074474894225,186L263.779156646459,186L262.2268807351769,186L260.9439755026303,186L259.66107027008366,186L258.6922118288433,186L257.07905376415596,186L255.24908515316935,186L254.0713001854951,186L252.80460099378297,186L251.79150444107546,186L250.2234604900625,186L249.34395427396365,186L248.25946354136366,186L246.71463364884335,186L245.50180859287835,186L244.4948440556217,186L243.5496376739776,186L242.53128510802648,186L241.65177889192756,186L240.38245169359365,186L238.51525298879812,186L237.44696829703258,186L236.01558069035372,186L234.71340340924718,186L233.08666731034717,186L231.3526209410566,186L230.1538119204079,186L229.10567527940958,186L227.7671439067013,186L226.76762538820648,186L225.64459055848658,186L224.39497340981623,186L222.77831133629985,186L221.7398107195815,186L220.48887956760024,186L219.4368009166692,186L218.27741199534762,186L215.43390883054988,186L214.43439031205503,186L213.09980094927948,186L211.79762366817295,186L210.58698861772612,186L209.0666867870094,186L208.07067227734365,186L206.51708236275064,186L204.73354186874934,186L203.21324003803264,186L201.7297303000212,186L200.39514093724566,186L199.39781242426898,186L198.14688127228771,186L196.8447039911812,186L195.45405048714042,186L194.1071970934631,186L192.58733326385,186L191.46342243192285,186L190.37498968939013,186L188.9479820937476,186L187.69223292962636,186L186.65767432284073,186L185.7475080294874,186L184.69630538076365,186L183.12519542202526,186L181.7065098473518,186L180.55763295251745,186L179.59972453886797,186L178.32689333170492,186L177.26736866201213,186L176.34756634437886,186L175.136931293932,186L173.69678366518045,186L172.0582215364823,186L170.5799678117145,186L169.52569915526533,186L168.4460264348053,186L167.52447211275745,186L166.54159763620078,186L164.50182649657305,186L162.7279220268517,186L161.80811970921843,186L160.48141436630831,186L159.43021171758454,186L158.44383323219878,186L157.42986067728398,186L155.8850307847637,186L154.95822044947226,186L153.619689076764,186L152.64688862559092,186L151.67803018435052,186L150.67851166585567,186L149.3005601938203,186L148.05751306170444,186L146.4776430808934,186L144.79133883189903,186L143.58070378145217,186L142.0122218293356,186L141.0306613560898,186L139.35749714020452,186L137.32517201933857,186L136.41500572598525,186L134.57540109071869,186L133.5290164541349,186L132.64469222589605,186L130.8707877561747,186L129.95098543854144,186L128.80167054260346,186L127.59278749657115,186L126.68262120321783,186L125.41329400488391,186L124.19170892684618,186L122.76951934334365,186L121.8851951151048,186L120.68332008673065,186L119.6373734512505,186L117.29056353797472,186L116.18110674246752,186L114.71205104087609,186L113.60434624978342,186L111.83044178006209,186L110.90625945139244,186L109.65664230272208,186L108.67026381733629,186L107.43510070508587,186L106.0308691668324,186L104.3414989101126,186L102.95785342372996,186L102.01352304429311,186L100.96144439336207,186L98.96547336409785,186L97.42852749144299,186L96.41762094425366,186L95.4281764511424,186L91.25446393460547,186L89.68160197145255,186L88.72281755559577,186L87.52400853494706,186L85.78777216013832,186L84.4255887278338,186L81.64734772747764,186L80.66578725423183,186L79.37587400402705,186L78.03909463573335,186L76.84072361618826,186L74.87497466307484,186L73.21933049133492,186L72.30390818473799,186L70.89661063875906,186L69.83708596906625,186L68.56644476742142,186L66.98657478661033,186L65.69534753309466,186L64.74138112937786,186L63.68711247292865,186L62.63065381096129,186L61.32234451440384,186L60.258439833674686,186L59.211179194883634,186L57.736867480048566,186L56.5875525841106,186L55.628768168253806,186L54.443975182921406,186L53.499644803484564,186L52.31616582146307,186L51.3963635038298,186L49.71487726697543,186L48.56600037214108,186L46.66419958015836,186L45.47634058710052,186L44.49478011385471,186L43.157124743353734,186L41.68806904176229,186L36.82143877927494,186L35.398373193565156,186L32.571952071809164,186L31.35430900370415,186L30.366616515007458,186L29.21292160803313,186L28.170478981382075,186L26.39000449510622,186L23.240338558867666,186L22.02970350842081,186L20.864620572751985,186L19.01406590989454,186L16.601993832177158,186L14.80356130065227,186L12.71342003410654,186L11.14099607205726,186L10.145419563495134,186L9.13976902954941,186L8.188430632454413,186L6.555562518103512,186L4.720337893873292,186L3.4361186580157717,186L2.417766092064635,186L1.0424426266510565,186L0,186Z"></path></g><g class="point"><g class="point bottom" transform="translate(640.4982118684871,167.76893774209753)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="18.231062257902465" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">啦卡登山步道口</text></g><g class="point bottom" transform="translate(26.39000449510622,180.35803107955968)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="5.64196892044032" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">啦卡路登山口</text></g><g class="point bottom" transform="translate(578.3186991942697,86.32521145688327)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="99.67478854311673" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">回大刀山步道</text></g><g class="point bottom" transform="translate(119.6373734512505,64.23006804827624)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="121.76993195172376" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">大刀山</text></g><g class="point bottom" transform="translate(186.65767432284073,0.11561720553017119)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="185.88438279446981" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">拉樸山(往左)</text></g><g class="point bottom" transform="translate(390.74034655158886,141.30614970620775)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="44.69385029379225" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">烏來孝義派出所</text></g><g class="point bottom" transform="translate(684.642591099434,183.69799461807006)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="2.302005381929945" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">烏來站(新店客運)</text></g><g class="point bottom" transform="translate(257.07905376415596,84.52676955153154)"><line y1="0" x1="0" style="stroke: rgb(51, 51, 51); stroke-width: 0.5; stroke-dasharray: 2, 2;" y2="101.47323044846846" x2="0"></line><circle class=" height-focus circle-lower" r="3"></circle><text dx="4px" dy="-4px">阿玉溪山</text></g></g><g class="axis"><g class="x axis bottom distance" transform="translate(0,186)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"><path class="domain" stroke="currentColor" d="M0.5,6V0.5H685.5V6"></path><g class="tick" opacity="1" transform="translate(0.5,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">0</text></g><g class="tick" opacity="1" transform="translate(88.10022072697953,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">2</text></g><g class="tick" opacity="1" transform="translate(175.70044145395906,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">4</text></g><g class="tick" opacity="1" transform="translate(263.3006621809386,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">6</text></g><g class="tick" opacity="1" transform="translate(350.9008829079181,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">8</text></g><g class="tick" opacity="1" transform="translate(438.5011036348977,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">10</text></g><g class="tick" opacity="1" transform="translate(526.1013243618772,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">12</text></g><g class="tick" opacity="1" transform="translate(613.7015450888566,0)"><line stroke="currentColor" y2="6"></line><text fill="currentColor" y="9" dy="0.71em">14</text></g><text x="691" y="25">km</text></g><g class="y axis left altitude" transform="translate(0,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="end"><path class="domain" stroke="currentColor" d="M-6,186.5H0.5V0.5H-6"></path><g class="tick" opacity="1" transform="translate(0,163.38745257042856)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">200</text></g><g class="tick" opacity="1" transform="translate(0,137.69542535111808)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">300</text></g><g class="tick" opacity="1" transform="translate(0,112.00339813180757)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">400</text></g><g class="tick" opacity="1" transform="translate(0,86.31137091249708)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">500</text></g><g class="tick" opacity="1" transform="translate(0,60.61934369318658)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">600</text></g><g class="tick" opacity="1" transform="translate(0,34.92731647387606)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">700</text></g><g class="tick" opacity="1" transform="translate(0,9.235289254565565)"><line stroke="currentColor" x2="-6"></line><text fill="currentColor" x="-9" dy="0.32em">800</text></g><text x="-3" y="-8">m</text></g><g class="y axis right slope" transform="translate(685,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="start"><path class="domain" stroke="currentColor" d="M6,186.5H0.5V0.5H6"></path><g class="tick" opacity="1" transform="translate(0,169.25558271303188)"><line stroke="currentColor" x2="6"></line><text fill="currentColor" x="22" dy="0.32em">−50</text></g><g class="tick" opacity="1" transform="translate(0,117.59465614931673)"><line stroke="currentColor" x2="6"></line><text fill="currentColor" x="22" dy="0.32em">0</text></g><g class="tick" opacity="1" transform="translate(0,65.93372958560158)"><line stroke="currentColor" x2="6"></line><text fill="currentColor" x="22" dy="0.32em">50</text></g><g class="tick" opacity="1" transform="translate(0,14.272803021886444)"><line stroke="currentColor" x2="6"></line><text fill="currentColor" x="22" dy="0.32em">100</text></g><text x="25" y="-8">%</text></g><g class="y axis right speed" transform="translate(725,0)" fill="none" font-size="10" font-family="sans-serif" text-anchor="start"><path class="domain" stroke="currentColor" d="M6,186.5H0.5V0.5H6" opacity="0.25"></path><g class="tick" opacity="1" transform="translate(0,186.5)"><line stroke="currentColor" x2="6" opacity="0.75"></line><text fill="currentColor" x="22" dy="0.32em">0</text></g><g class="tick" opacity="1" transform="translate(0,134.83333333333334)"><line stroke="currentColor" x2="6" opacity="0.75"></line><text fill="currentColor" x="22" dy="0.32em">1</text></g><g class="tick" opacity="1" transform="translate(0,83.16666666666666)"><line stroke="currentColor" x2="6" opacity="0.75"></line><text fill="currentColor" x="22" dy="0.32em">2</text></g><g class="tick" opacity="1" transform="translate(0,31.500000000000014)"><line stroke="currentColor" x2="6" opacity="0.75"></line><text fill="currentColor" x="22" dy="0.32em">3</text></g><text x="25" y="-8">km/h</text></g></g><g class="brush" fill="none" pointer-events="all"><rect class="overlay" pointer-events="all" x="0" y="0" width="685" height="186"></rect><rect class="selection" cursor="move" fill="#777" fill-opacity="0.3" stroke="#fff" shape-rendering="crispEdges" style="display: none;"></rect><rect class="handle handle--w" cursor="ew-resize" style="display: none;"></rect><rect class="handle handle--e" cursor="ew-resize" style="display: none;"></rect></g><g class="tooltip"><line class="mouse-focus-line" x2="533" y2="0" x1="533" y1="186"></line><g class="mouse-focus-label"><rect class="mouse-focus-label-rect" x="538" y="51.68937527997319" width="104.039794921875" height="81" rx="3" ry="3"></rect><text class="mouse-focus-label-text" y="56.68937527997319" style="font-weight: 700;"><tspan class="mouse-focus-label-y" dy="1em" x="543">337 m</tspan><tspan class="mouse-focus-label-x" dy="1.5em" x="543">6.75 km</tspan><tspan class="mouse-focus-label-time" dy="1.5em" x="543">2022-4-26 下午3:12:33</tspan><tspan class="mouse-focus-label-slope" dy="1.5em" x="543">-17.99%</tspan><tspan class="mouse-focus-label-speed" dy="1.5em" x="543">3.6 km/h</tspan></text></g></g><g class="ruler" transform="translate(0,186)"><rect class="horizontal-drag-rect" x="0" y="-8" height="8" fill="none" pointer-events="all" width="685"></rect><line class="horizontal-drag-line" x1="0" x2="685"></line><text class="horizontal-drag-label" text-anchor="end" y="-8" x="677"></text><path class="horizontal-drag-symbol" d="M0,-6.204032394013997L5.372849659117709,3.1020161970069986L-5.372849659117709,3.1020161970069986Z" transform="translate(692,0) rotate(-90)"></path></g><g class="legend"><g class="legend-item legend-altitude" data-name="altitude" transform="translate(-110, 2)"><rect x="292.5" y="216" width="50" height="10" fill="#3366CC" stroke="#000" stroke-opacity="0.5" fill-opacity="0.25"></rect><text x="347.5" font-size="10" y="216" dy="0.75em" style="text-decoration-thickness: 2px; font-weight: 700;">Altitude</text></g><g class="legend-item legend-slope" data-name="slope" transform="translate(0, 2)"><rect x="292.5" y="216" width="50" height="10" fill="#F00" stroke="#000" stroke-opacity="0.5" fill-opacity="0.25" style="fill-opacity: 0;"></rect><text x="347.5" font-size="10" y="216" dy="0.75em" style="text-decoration-thickness: 2px; font-weight: 700; text-decoration-line: line-through;">坡度</text></g><g class="legend-item legend-speed" data-name="speed" transform="translate(110, 2)"><rect x="292.5" y="216" width="50" height="10" fill="#03ffff" stroke="#000" stroke-opacity="0.5" fill-opacity="0.25" style="fill-opacity: 0;"></rect><text x="347.5" font-size="10" y="216" dy="0.75em" style="text-decoration-thickness: 2px; font-weight: 700; text-decoration-line: line-through;">速度</text></g></g></g></svg><div class="elevation-summary "></div></div></div>
+
+	<script>
+		var opts = {
+			map: {
+				center: [25.048808, 121.514055],  //台北車站
+				zoom: 12,
+				
+				// Optional customizations
+				mapTypeId: 'topo',
+				mapTypeIds: ['satellite', 'osm', 'b25000', 'eMAP5', 'topo', 'rudyMapColor', 'rudyMapVanilla', 'town', 'village'],
+				mapTypes:{
+					osm: {
+						name: "OSM",
+						url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+						options: {
+							maxZoom: 24,
+							maxNativeZoom: 19,
+							attribution: 'Map data: © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+						}
+					},
+					terrain: {
+						name: "地形圖",
+						url: "https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png",
+						options: {
+							maxZoom: 24,
+							maxNativeZoom: 22,
+							attribution: 'Map data: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | Map style: © <a href="http://www.thunderforest.com/">Thunderforest</a>'
+						}
+					},
+					satellite: {
+						name: "衛星圖", //ArcGIS衛星圖
+						url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+						options: {
+							maxZoom: 24,
+							maxNativeZoom: 18,
+							attribution: 'Map data: © <a href="http://www.esri.com/">Esri</a> — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+						}
+					},
+					rudyMapColor:{
+						name: "魯地圖彩色", //魯地圖彩色版(Rex提供)
+						url: 'http://rudy.tile.basecamp.tw/{z}/{x}/{y}.png',
+						options: {
+							attribution: '&copy; <a href="//rudy.basecamp.tw/taiwan_topo.html">Taiwan TOPO</a> contributors'
+						},
+					},
+					rudyMapVanilla:{
+						name: "魯地圖清爽", //魯地圖清爽版(happyman提供)
+						url: 'https://rs.happyman.idv.tw/map/moi_osm/{z}/{x}/{y}.png',
+						options: {
+							attribution: '&copy; <a href="//rudy.basecamp.tw/taiwan_topo.html">Taiwan TOPO</a> contributors'
+						},
+					},
+					happymanGpxTrack:{
+						name: "地圖產生器航跡",
+						url: 'http://rs.happyman.idv.tw/map/gpxtrack/{z}/{x}/{y}.png',
+						options: {
+							attribution: '&copy; <a href="//rudy.basecamp.tw/taiwan_topo.html">Taiwan TOPO</a> contributors'
+						},
+					},
+					eMAP5:{
+						name: "臺灣通用電子地圖", //臺灣通用電子地圖(等高線+門牌)
+						url: 'https://wmts.nlsc.gov.tw/wmts/EMAP5/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+					b25000:{
+						name: "1/25000經建", //1/25000 經建版地形圖
+						url: 'https://wmts.nlsc.gov.tw/wmts/B25000/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+					photo:{
+						name: "	正射影像圖(通用)",
+						url: 'https://wmts.nlsc.gov.tw/wmts/PHOTO2/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+					photoMix:{
+						name: "正射影像(混合)",
+						url: 'https://wmts.nlsc.gov.tw/wmts/PHOTO_MIX/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+					city:{
+						name: "縣市界",
+						url: 'https://wmts.nlsc.gov.tw/wmts/CITY/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+					town:{
+						name: "鄉鎮區界",
+						url: 'https://wmts.nlsc.gov.tw/wmts/TOWN/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+					village:{
+						name: "村里界",
+						url: 'https://wmts.nlsc.gov.tw/wmts/Village/default/GoogleMapsCompatible/{z}/{y}/{x}',
+						options: {
+							attribution: '&copy; <a href="https://maps.nlsc.gov.tw/S09SOA/">內政部國土測繪中心</a> contributors'
+						},
+					},
+				},
+				fullscreenControl: true,
+				resizerControl: true,
+				preferCanvas: true,
+				rotate: true,
+				// bearing: 45,
+				rotateControl: {
+					closeOnZeroBearing: true
+				},
+				gestureHandling: false,	// zoom with Cmd + Scroll
+				zoomControl: true,		// plus minus buttons
+				pegmanControl: false,	// Google街景人
+				locateControl: false,	// GPS定位
+				layersControl: true,
+				minimapControl: true,
+				editInOSMControl: false,
+				loadingControl: true,
+				searchControl: false,
+				//disableDefaultUI: false,
+			},
+			elevationControl: {
+				url: "佛系：大樸玉來個O預定路線.gpx",
+				options: {
+					
+					// Default chart colors: theme lime-theme, magenta-theme, ...
+					theme: "lightblue-theme",
+					//theme: "custom-theme-demo",
+					
+					// Chart container outside/inside map container
+					detached: true,
+					
+					// if (detached), the elevation chart container
+					elevationDiv: "#elevation-div",
+					
+					// if (!detached) initial state of chart profile control
+					collapsed: true,
+					
+					// if (!detached) autohide chart profile on chart mouseleave
+					autohide: true,
+					
+					// if (!detached) control position on one of map corners
+					position: "bottomleft",
+					//position: "topleft",
+					
+					// [Lat, Long] vs [Long, Lat] points. (leaflet default: [Lat, Long])
+					reverseCoords: false,
+					
+					// Display distance info: true || "summary"
+					// distance: true, 
+					
+					// Display altitude info: true || "summary"
+					// altitude: "disabled", 
+					
+					// Slope chart profile: true || "summary" || "disabled" || false
+					slope: "disabled",  
+					
+					// Speed chart profile: true || "summary" || "disabled" || false
+					speed: "disabled",  
+					
+					// Acceleration chart profile: true || "summary" || "disabled" || false
+					acceleration: false,  
+					
+					// Display time info: true || "summary" || false
+					time: "summary",  
+					
+					// Summary track info style: "inline" || "multiline" || false
+					summary: false,  
+					
+					// Download link: "link" || false || "modal"
+					downloadLink: false,  
+					
+					// Chart distance/elevation units.
+					imperial: false,
+					
+					// Toggle chart ruler filter
+					ruler: true, 
+					
+					// Toggle chart legend filter
+					legend: true, 
+					
+					// Autoupdate map center on chart mouseover.
+					followMarker: true,
+
+					// Autoupdate map bounds on chart update.
+					autofitBounds: true,
+					
+					// Toggle "leaflet-almostover" integration
+					almostOver: true,  
+					
+					// Toggle "leaflet-distance-markers" integration
+					distanceMarkers: true,  
+					
+					// Display track waypoints
+					waypoints: true,  
+				},
+			},
+			layersControl: {
+				options: {
+					collapsed: true,
+				},
+			},
+		};
 		
-			height: 100%;
-			width: 100%;
-			padding: 0px;
-			margin: 0px;
-		
-			/* height: 100%; */
-			width: 100%;
-		
-			height: 100%;
-			width: 100%;
-			padding: 0px;
-			margin: 0px;
-			margin: 0px;
-			margin: 0px;
-			/* margin: 0px; */
-			margin: 0px;
-			/* margin: 0px; */
-			margin: 0px;
-			/* margin: 0px; */
-			margin: 0px;
-			margin: 0px;
-			margin: 0px;
-		
-			height: 100%;
-			/* width: 100%; */
-			padding: 0px;
-			margin: 0px;
-		
-			height: 100%;
-			width: 100%;
-			padding: 0px;
-			margin: 0px;
-		
-			/* height: 100%; */
-			width: 100%;
-			padding: 0px;
-			margin: 0px;
-		
+		var map = L.map('map', opts.map);	
+		var controlElevation = L.control.elevation(opts.elevationControl.options);
+		var controlLayer = L.control.layers(null, null, opts.layersControl.options);
+
+		controlElevation.addTo(map);
+		controlLayer.addTo(map);
+
+		controlElevation.on('eledata_loaded', function(e) {
+			controlLayer.addOverlay(e.layer, e.name);
+		});
+
+		controlElevation.load(opts.elevationControl.url);
+	</script>
+
+	<!-- i18n -->
+	<script>
+
+		// Register a custom locale
+		<!-- L.registerLocale('en:18', { -->
+			<!-- "Acceleration"      : "Acceleration", -->
+			<!-- "Altitude"          : "Elevation", -->
+			<!-- "Slope"             : "Slope", -->
+			<!-- "Speed"             : "Velocity", -->
+			<!-- "Total Length: "    : "L: ", -->
+			<!-- "Max Elevation: "   : "E Max: ", -->
+			<!-- "Min Elevation: "   : "E Min: ", -->
+			<!-- "Total Time: "      : "T: ", -->
+			<!-- "Total Ascent: "    : "Asc: ", -->
+			<!-- "Total Descent: "   : "Desc: ", -->
+			<!-- "Min Slope: "       : "S Min: ", -->
+			<!-- "Max Slope: "       : "S Max: ", -->
+			<!-- "Min Speed: "       : "V Min: ", -->
+			<!-- "Max Speed: "       : "V Max: ", -->
+			<!-- "Avg Speed: "       : "V Avg: ", -->
+			<!-- "Min Acceleration: ": "A Min: ", -->
+			<!-- "Max Acceleration: ": "A Max: ", -->
+			<!-- "Avg Acceleration: ": "A Avg: ", -->
+		<!-- }); -->
+		L.registerLocale('en:18', {
+			"Acceleration"      : "加速度",
+			"Altitude"          : "Altitude",
+			"Slope"             : "坡度",
+			"Speed"             : "速度",
+			"Total Length: "    : "總距離: ",
+			"Max Elevation: "   : "最高海拔: ",
+			"Min Elevation: "   : "最低海拔: ",
+			"Total Time: "      : "總時間: ",
+			"Total Ascent: "    : "總上升高度: ",
+			"Total Descent: "   : "總下降高度: ",
+			"Min Slope: "       : "最小坡度: ",
+			"Max Slope: "       : "最大坡度: ",
+			"Min Speed: "       : "最小速度: ",
+			"Max Speed: "       : "最大速度: ",
+			"Avg Speed: "       : "平均速度: ",
+			"Min Acceleration: ": "最小加速度: ",
+			"Max Acceleration: ": "最大加速度: ",
+			"Avg Acceleration: ": "平均加速度: ",
+		});
+
+		// Enable a custom locale
+		L.setLocale('en:18');
+
+	</script>
+
+
+
+</body></html>
