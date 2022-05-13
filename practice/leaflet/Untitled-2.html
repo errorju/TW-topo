@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>elevation</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+</head>
+
+
+<body>
+
+
+<!--1.在網頁中加入CSS連結
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+ -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+   
+ <!--2.加入JavaScript連結;一定要在Leaflet's CSS之後再加入
+ <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+ integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+ crossorigin=""></script>
+  -->
+
+<!--3.載入jquery(可加可不加,如果不加的話,請忽略後面有關jquery的程式碼)-->
+<!-- 用jquery的方式將程式碼包起來 -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<!--4.給地圖一個空間.完成Leaflet的連結後,在body中給一個空間放地圖吧.命名id 為mapid-->
+<!-- 想要整個頁面都是地圖，所以我在這邊用 style="width: 100%;"填滿寬 -->
+<div id="mapid" style="width: 100%;"></div>
+
+<!--5.給我們的 div 一個高度-->
+#mapid {
+    height: 680px;
+  }
+
+<!--6.最後就是用 Leaflet 來建立地圖：-->
+// *** 放置地圖
+const map = L.map('map', {
+  center: center, // 中心點座標
+  zoom: 17, // 0 - 18
+  attributionControl: true, // 是否秀出「leaflet」的貢獻標記
+  zoomControl: true , // 是否秀出 - + 按鈕
+});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+<!--7.放置 Marker-->
+const center = [xxx, xxx];
+const marker = L.marker(center, {
+  title: '跟 <a> 的 title 一樣', // 跟 <a> 的 title 一樣
+  opacity: 1.0
+}).addTo(map);
+
+// 加上 Popup
+marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
+
+
+</body>
+
+</html>
