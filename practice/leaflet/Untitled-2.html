@@ -5,10 +5,7 @@
 	<title>elevation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-</head>
 
-
-<body>
 
 
 <!--1.在網頁中加入CSS連結
@@ -29,10 +26,12 @@
 <!-- 用jquery的方式將程式碼包起來 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
+</head>
+<body>
 
 <!--4.給地圖一個空間.完成Leaflet的連結後,在body中給一個空間放地圖吧.命名id 為mapid-->
 <!-- 想要整個頁面都是地圖，所以我在這邊用 style="width: 100%;"填滿寬 -->
-<div id="mapid" style="width: 100%;"></div>
+<div id="mapid" style="width: 60%;"></div>
 
 <!--5.給我們的 div 一個高度-->
 #mapid {
@@ -50,7 +49,7 @@ const map = L.map('map', {
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 <!--7.放置 Marker-->
-const center = [xxx, xxx];
+const center = [24.999098071256604, 121.58095073873938];
 const marker = L.marker(center, {
   title: '跟 <a> 的 title 一樣', // 跟 <a> 的 title 一樣
   opacity: 1.0
